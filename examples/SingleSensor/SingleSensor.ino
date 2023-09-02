@@ -31,7 +31,6 @@ void setup()
     Serial.println("Double Sensor POST Status Code: " + String(postStatusCode2));
 
     // Make a GET request
-    String getData = httpClient.getRequest();
     Serial.println("GET Data: " + getData);
 }
 
