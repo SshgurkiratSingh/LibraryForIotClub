@@ -1,12 +1,12 @@
-#include "HTTPClient.h"
+#include "httpSendData.h"
 #include <ArduinoJson.h>
 
-HTTPClient::HTTPClient(const char *fullUrl)
+httpSendData::httpSendData(const char *fullUrl)
 {
     _fullUrl = fullUrl;
 }
 
-int HTTPClient::connectWiFi(const char *ssid, const char *password)
+int httpSendData::connectWiFi(const char *ssid, const char *password)
 {
     WiFi.begin(ssid, password);
     unsigned long startTime = millis();
@@ -23,7 +23,7 @@ int HTTPClient::connectWiFi(const char *ssid, const char *password)
     return 0;
 }
 
-int HTTPClient::postSingleSensor(int teamId, const String &sensor1Name, const String &sensor1Value)
+int httpSendData::postSingleSensor(int teamId, const String &sensor1Name, const String &sensor1Value)
 {
     HTTPClient http;
 
@@ -44,7 +44,7 @@ int HTTPClient::postSingleSensor(int teamId, const String &sensor1Name, const St
     return httpCode;
 }
 
-int HTTPClient::postDoubleSensor(int teamId, const String &sensor1Name, const String &sensor1Value, const String &sensor2Name, const String &sensor2Value)
+int httpSendData::postDoubleSensor(int teamId, const String &sensor1Name, const String &sensor1Value, const String &sensor2Name, const String &sensor2Value)
 {
     HTTPClient http;
 
@@ -67,7 +67,7 @@ int HTTPClient::postDoubleSensor(int teamId, const String &sensor1Name, const St
     return httpCode;
 }
 
-String HTTPClient::getRequest()
+String httpSendData::getRequest()
 {
     HTTPClient http;
 
