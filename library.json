@@ -1,0 +1,25 @@
+{
+  "name": "LibraryForIotClub",
+  "version": "1.0.0",
+  "description": "Library ",
+  "keywords": "planet, happiness, people",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/SshgurkiratSingh/LibraryForIotClub"
+  },
+  "authors":
+  [
+    {
+      "name": "Gurkirat Singh",
+      "email": "gurkirat7092@yahoo.com",
+      "url": "https://github.com/sshgurkiratSingh"
+    }
+  ],
+  "license": "MIT",
+ 
+  "dependencies": {
+  },
+  "frameworks": "*",
+  "platforms": "*"
+}
