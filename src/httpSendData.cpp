@@ -24,7 +24,7 @@ int httpSendData::connectWiFi(const char *ssid, const char *password)
     return 0;
 }
 
-int httpSendData::postSingleSensor(int teamId, const String &sensor1Name, const String &sensor1Value)
+int httpSendData::postSingleSensor(int teamId, const String &sensor1Name, const float sensor1Value)
 {
     HTTPClient http;
     http.begin(wifiClient, _fullUrl); // Updated line
@@ -40,7 +40,7 @@ int httpSendData::postSingleSensor(int teamId, const String &sensor1Name, const 
     return httpCode;
 }
 
-int httpSendData::postDoubleSensor(int teamId, const String &sensor1Name, const String &sensor1Value, const String &sensor2Name, const String &sensor2Value)
+int httpSendData::postDoubleSensor(int teamId, const String &sensor1Name, const float sensor1Value, const String &sensor2Name, const float sensor2Value)
 {
     HTTPClient http;
     http.begin(wifiClient, _fullUrl); // Updated line

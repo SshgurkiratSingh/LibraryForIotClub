@@ -7,7 +7,7 @@ void setup()
     randomSeed(analogRead(0));
     Serial.begin(9600);
     // Connecting·to·WiFi
-    int wifiStatus = httpClient.connectWiFi("Node ", "whyitellyou");
+    int wifiStatus = sendData.connectWiFi("Node ", "whyitellyou");
     if (wifiStatus == 0)
     {
         Serial.println("Successfully connected to WiFi.");
@@ -17,4 +17,11 @@ void setup()
         Serial.println("Failed to connect to WiFi.");
         return;
     }
+}
+void loop()
+{
+    float randomValue = random(10, 100);
+    Serial.println(randomValue);
+    int statusCode = sendData.postSingleSensor(1, "Random_Value", float(randomValue));
+    Serial.println(statusCode);
 }
