@@ -1,5 +1,5 @@
 #include "DHT.h"
-#include "httpSendData.h"
+#include "ISTCIOTCLUB.h"
 httpSendData httpClient("http://192.168.1.100:3000/api/post/sensor");
 
 DHT dht(2, DHT11);
