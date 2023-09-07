@@ -10,9 +10,14 @@
 class ReadDht11
 {
 public:
-    void read(int pin);
+    ReadDht11(int pin);
+    void refresh();
     int humidity;
     int temperature;
+
+private:
+    int _pin;
+    void read();
 };
 
 #endif
