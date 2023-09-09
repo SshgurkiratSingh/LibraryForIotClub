@@ -8,7 +8,7 @@ ReadDht11 dhtSensor(D4);
 void setup()
 {
     Serial.begin(9600);
-    int wifiStatus = httpClient.connectWiFi("Node ", "whyitellyou"); // Enter Wifi Credential
+    int wifiStatus = httpClient.connectWiFi("wifi name ", "password"); // Enter Wifi Credential
     if (wifiStatus == 0)                                             // 0 mean success
     {
         Serial.println("Successfully connected to WiFi.");
