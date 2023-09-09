@@ -7,7 +7,7 @@ void setup()
     randomSeed(analogRead(0));
     Serial.begin(9600);
     // Connecting·to·WiFi
-    int wifiStatus = sendData.connectWiFi("Node ", "whyitellyou");
+    int wifiStatus = sendData.connectWiFi("Wifi name ", "password");
     if (wifiStatus == 0)
     {
         Serial.println("Successfully connected to WiFi.");
