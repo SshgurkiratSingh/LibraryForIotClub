@@ -6,8 +6,8 @@
 #define WIFI_PASS "password"
 #define MQTT_SERVER "192.168.1.100"
 
-WiFiClient espClient;
-PubSubClient client(MQTT_SERVER, 1883, espClient);
+WiFiClient wifi;
+PubSubClient client(MQTT_SERVER, 1883, wifi);
 PubSubClientTools mqtt(client);
 
 const String s = "";
@@ -23,7 +23,6 @@ void setup() {
     Serial.print(".");
   }
   Serial.println("connected");
-
   // Connect to MQTT
   Serial.print(s+"Connecting to MQTT: "+MQTT_SERVER+" ... ");
   if (client.connect("ESP8266Client")) {
