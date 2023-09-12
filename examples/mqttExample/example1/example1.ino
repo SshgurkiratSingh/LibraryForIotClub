@@ -2,53 +2,82 @@
 #include <PubSubClient.h>
 #include <PubSubClientTools.h>
 
-#define WIFI_SSID "Wifi Name "
-#define WIFI_PASS "password"
-#define MQTT_SERVER "192.168.1.100"
+#define WIFI_SSID "ConForNode"
+#define WIFI_PASS "12345678"
+#define MQTT_SERVER "192.168.203.113"
 
 WiFiClient wifi;
-PubSubClient client(MQTT_SERVER, 1883, wifi);
+PubSubClient client(MQTT_SERVER, 1883, wifi); // Create MQTT client object where MQTT_SERVER is host and 1883 is port number and wifi is the WiFiClient object
 PubSubClientTools mqtt(client);
 
-const String s = "";
 
-void setup() {
+/**
+ * Toggles the state of an LED based on the received message.
+ */
+void led_toggle(String topic, String message)
+{
+  // Print the received message and topic to the serial monitor
+  Serial.println("Message arrived in function 1 [" + topic + "] " + message);
+
+  // Toggle the LED based on the message value
+  if (message == "0")
+  {
+    // Turn off the LED
+    digitalWrite(D0, LOW);
+  }
+  if (message == "1")
+  {
+    // Turn on the LED
+    digitalWrite(D0, HIGH);
+  }
+}
+
+void setup()
+{
+  // Initialize the serial communication
   Serial.begin(115200);
   Serial.println();
-  pinMode(D0,OUTPUT);
-  Serial.print(s+"Connecting to WiFi: "+WIFI_SSID+" ");
+
+  // Set D0 pin as an output pin
+  pinMode(D0, OUTPUT);
+
+  // Connect to WiFi
+  Serial.print("Connecting to WiFi: " + String(WIFI_SSID) + " ... ");
   WiFi.begin(WIFI_SSID, WIFI_PASS);
-  while (WiFi.status() != WL_CONNECTED) {
+  
+  // Wait until WiFi is connected
+  while (WiFi.status() != WL_CONNECTED)
+  {
     delay(500);
     Serial.print(".");
   }
   Serial.println("connected");
+
   // Connect to MQTT
-  Serial.print(s+"Connecting to MQTT: "+MQTT_SERVER+" ... ");
-  if (client.connect("ESP8266Client")) {
+  Serial.print("Connecting to MQTT: " + String(MQTT_SERVER) + " ... ");
+  
+  // If the client is able to connect to MQTT server
+  if (client.connect("ESP8266Client"))
+  {
     Serial.println("connected");
 
-    mqtt.subscribe("t1/test",led_toggle);
-  
-  } else {
-    Serial.println(s+"failed, rc="+client.state());
+    // Subscribe to the "t1/test" topic and set the callback function to "led_toggle"
+    mqtt.subscribe("t1/test", led_toggle);
   }
-digitalWrite(D0,LOW);
+  else
+  {
+    Serial.println("failed, rc=" + client.state());
+  }
 
+  // Turn off the D0 pin
+  digitalWrite(D0, LOW);
 }
 
-void loop() {
+
+// The loop function is the main execution loop of the program.
+void loop()
+{
+  // Call the loop function of the client object.
+  // This function allows the client object to process any pending messages or events.
   client.loop();
- 
-}
-
-
-void led_toggle(String topic, String message) {
-  Serial.println(s+"Message arrived in function 1 ["+topic+"] "+message);
-  if (message=="0" ){
-    digitalWrite(D0,LOW);
-  }
-  if (message=="1"){
-    digitalWrite(D0,1);
-  }
 }
