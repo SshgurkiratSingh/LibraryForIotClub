@@ -19,4 +19,4 @@
 
  -  Search for ESP8266 and press install button for the “ESP8266 by ESP8266 Community“:
  -  Install ESP8266 Board add-on in Arduino IDE search ESP8266
-### refer this [link](https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/) for detailed instruction
+ -  refer this [link](https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/) for detailed instruction
