@@ -6,7 +6,7 @@
 #include <ESP8266WebServer.h>
 #include <ArduinoJson.h>
 
-#define maxIRSensor 4
+#define maxIRSensor 2
 
 typedef void (*MessageCallback)(const String &); // Define a function pointer type for callbacks
 
