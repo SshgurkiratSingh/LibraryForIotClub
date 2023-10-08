@@ -1,16 +1,17 @@
 #include "MobileCar.h"
 
-// Constructor
-MobileCar::MobileCar(int port) : server(port)
+MobileCar::MobileCar(int irPin1, int irPin2, int irPin3, int irPin4, int port) : server(port)
 {
+    irPins[0] = irPin1;
+    irPins[1] = irPin2;
+    irPins[2] = irPin3;
+    irPins[3] = irPin4;
 }
 
 void MobileCar::startWifi(const char *ssid, const char *password)
 {
-#ifdef DEBUG_MODE
     Serial.begin(115200);
     Serial.println("AP MODE...");
-#endif
     WiFi.mode(WIFI_AP);
     WiFi.softAP(ssid, password);
 }
@@ -19,11 +20,20 @@ void MobileCar::setupServer(MessageCallback callback)
 {
     server.on("/message", HTTP_GET, [this, callback]()
               {
+        DynamicJsonDocument doc(256);
+        for (int i = 0; i < 4; i++) {
+            int sensorValue = analogRead(irPins[i]);
+            doc[String("ir" + String(i + 1))] = sensorValue;
+        }
+
         if (server.hasArg("msg")) {
             String msg = server.arg("msg");
-            callback(msg);  // Call the callback function
+            callback(msg);
         }
-        server.send(200, "text/plain", "Message received"); });
+
+        String json;
+        serializeJson(doc, json);
+        server.send(200, "application/json", json); });
 
     server.begin();
 }
