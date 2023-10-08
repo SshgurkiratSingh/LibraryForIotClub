@@ -1,4 +1,4 @@
--09]00#ifndef MobileCar_h
+#ifndef MobileCar_h
 #define MobileCar_h
 
 #include <ESP8266WiFi.h>
@@ -16,12 +16,15 @@ public:
     MobileCar(int irPin1, int irPin2, int irPin3, int irPin4, int port = 80);
     void startWifi(const char *ssid, const char *password);
     void setupServer(MessageCallback callback, const char *endPoint = "/");
+    void setupUltraSonic(int trigg, int echo);
     void handleClient();
 
 private:
     ESP8266WebServer server;
     int irPins[4];
     char *endPoint;
+    int _trigg;
+    int _echo;
 };
 
 #endif

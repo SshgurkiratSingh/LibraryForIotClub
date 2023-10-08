@@ -17,19 +17,28 @@ void MobileCar::startWifi(const char *ssid, const char *password)
     WiFi.softAP(ssid, password);
 }
 
-void MobileCar::setupServer(MessageCallback callback, endpoint)
+void MobileCar::setupServer(MessageCallback callback, const char *endPoint)
+
 {
-    _endpoint = endpoint;
-    server.on(String(endpoint), HTTP_GET, [this, callback]()
+    server.on(String(endPoint), HTTP_GET, [this, callback]()
               {
         DynamicJsonDocument doc(256);
         for (int i = 0; i < maxIRSensor; i++) {
-            int sensorValue = analogRead(irPins[i]);
+            int sensorValue = digitalRead(irPins[i]);
             doc[String("ir" + String(i + 1))] = sensorValue;
         }
-
-        if (server.hasArg("msg")) {
-            String msg = server.arg("msg");
+#if ULTRASONICENABLED
+        digitalWrite(_trigg, LOW);
+        delayMicroseconds(2);
+        digitalWrite(_trigg, HIGH);
+        delayMicroseconds(10);
+        digitalWrite(_trigg, LOW);
+        int duration = pulseIn(_echo, HIGH);
+        float distance = duration *0.0344/2;.
+        doc["fc"] = distance;
+#endif
+        if (server.hasArg("State")) {
+            String msg = server.arg("State");
             callback(msg);
         }
 
@@ -38,6 +47,13 @@ void MobileCar::setupServer(MessageCallback callback, endpoint)
         server.send(200, "application/json", json); });
 
     server.begin();
+}
+void MobileCar::setupUltraSonic(int trigg, int echo)
+{
+    _trigg = trigg;
+    _echo = echo;
+    pinMode(_trigg, OUTPUT);
+    pinMode(_echo, INPUT);
 }
 
 void MobileCar::handleClient()
