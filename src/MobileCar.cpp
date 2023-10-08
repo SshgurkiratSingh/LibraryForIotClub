@@ -1,6 +1,6 @@
 #include "MobileCar.h"
 
-MobileCar::MobileCar(int irPin1, int irPin2, int irPin3, int irPin4, int port) : server(port)
+MobileCar::MobileCar(int irPin1, int irPin2 ,int port) : server(port)
 {
     irPins[0] = irPin1;
     irPins[1] = irPin2;
@@ -34,7 +34,7 @@ void MobileCar::setupServer(MessageCallback callback, const char *endPoint)
         delayMicroseconds(10);
         digitalWrite(_trigg, LOW);
         int duration = pulseIn(_echo, HIGH);
-        float distance = duration *0.0344/2;.
+        float distance = duration * 0.0344 / 2;
         doc["fc"] = distance;
 #endif
         if (server.hasArg("State")) {

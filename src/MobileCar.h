@@ -13,7 +13,7 @@ typedef void (*MessageCallback)(const String &); // Define a function pointer ty
 class MobileCar
 {
 public:
-    MobileCar(int irPin1, int irPin2, int irPin3, int irPin4, int port = 80);
+    MobileCar(int irPin1, int irPin2, int port = 80);
     void startWifi(const char *ssid, const char *password);
     void setupServer(MessageCallback callback, const char *endPoint = "/");
     void setupUltraSonic(int trigg, int echo);

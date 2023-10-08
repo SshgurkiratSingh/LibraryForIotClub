@@ -3,7 +3,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "C:\\Users\\appzo\\Documents\\Arduino\\libraries\\**"
+                "C:\\Users\\appzo\\Documents\\Arduino\\libraries\\**",
+                "C:\\Users\\appzo\\AppData\\Local\\Arduino15\\**"
             ],
             "defines": [
                 "_DEBUG",
