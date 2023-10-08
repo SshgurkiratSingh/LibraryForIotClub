@@ -10,18 +10,20 @@ MobileCar::MobileCar(int irPin1, int irPin2, int irPin3, int irPin4, int port) :
 
 void MobileCar::startWifi(const char *ssid, const char *password)
 {
+
     Serial.begin(115200);
     Serial.println("AP MODE...");
     WiFi.mode(WIFI_AP);
     WiFi.softAP(ssid, password);
 }
 
-void MobileCar::setupServer(MessageCallback callback)
+void MobileCar::setupServer(MessageCallback callback, endpoint)
 {
-    server.on("/message", HTTP_GET, [this, callback]()
+    _endpoint = endpoint;
+    server.on(String(endpoint), HTTP_GET, [this, callback]()
               {
         DynamicJsonDocument doc(256);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < maxIRSensor; i++) {
             int sensorValue = analogRead(irPins[i]);
             doc[String("ir" + String(i + 1))] = sensorValue;
         }
