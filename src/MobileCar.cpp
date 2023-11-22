@@ -4,8 +4,7 @@ MobileCar::MobileCar(int irPin1, int irPin2 ,int port) : server(port)
 {
     irPins[0] = irPin1;
     irPins[1] = irPin2;
-    irPins[2] = irPin3;
-    irPins[3] = irPin4;
+    
 }
 
 void MobileCar::startWifi(const char *ssid, const char *password)
